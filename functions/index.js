@@ -8,7 +8,7 @@ exports.chatBot = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-4-32k",
+        model: "gpt-4",
         messages,
       }, {
         headers: {
