@@ -20,7 +20,7 @@ exports.chatBot = functions.https.onRequest(async (req, res) => {
       const chatResponse = response.data.choices[0].message.content.trim();
       
       // Add the headers to the response before sending it
-      res.set('Access-Control-Allow-Origin', "*");
+      res.set('Access-Control-Allow-Origin', "https://codebot-project.web.app/");
       res.set('Access-Control-Allow-Methods', 'GET, POST');
 
       res.json({ message: chatResponse });
