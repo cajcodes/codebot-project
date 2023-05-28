@@ -45,9 +45,11 @@ document.getElementById('message-form').addEventListener('submit', async (e) => 
   } catch (e) {
     chatContainer.innerHTML += `<p>Bot: Sorry, I couldn't process that request. Please try again.</p>`;
     console.error('There was an error:', e);
-  } finally {
-    // Remove loading text in all circumstances
-    chatContainer.removeChild(loadingMessage);
-    chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
-  }
+    finally {
+      // Remove loading text in all circumstances
+      if (loadingMessage.parentNode) {
+        loadingMessage.parentNode.removeChild(loadingMessage);
+      }
+      chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
+    }    
 });
