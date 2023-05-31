@@ -2,7 +2,18 @@ const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const chatContainer = document.getElementById('chat-container');
 
-function appendMessage(content, sender, isCode = false) {
+// Maintain a conversation history array
+let convHist = [
+  {
+    role: "system",
+    content: "You help users code."
+  }
+];
+
+function appendMessage(content, sender, role, isCode = false) {
+  // Add the new message to the conversation history
+  convHist.push({ role: role, content: content });
+
   const messageElement = document.createElement('div');
 
   const parts = content.split('```');
@@ -56,7 +67,7 @@ messageForm.addEventListener('submit', async (e) => {
   const message = messageInput.value;
   messageInput.value = '';
 
-  appendMessage(message, 'You');
+  appendMessage(message, 'You', 'user');
 
   const loadingMessage = document.createElement('p');
   loadingMessage.textContent = 'Bot is thinking...';
@@ -68,18 +79,7 @@ messageForm.addEventListener('submit', async (e) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        messages: [
-          {
-            role: "system",
-            content: "You help users code."
-          },
-          {
-            role: "user",
-            content: message
-          }
-        ]
-      })
+      body: JSON.stringify({ messages: convHist }) // Send the conversation history instead
     });
 
     if (!response.ok) {
@@ -88,9 +88,9 @@ messageForm.addEventListener('submit', async (e) => {
 
     const responseData = await response.json();
 
-    appendMessage(responseData.message, 'Bot');
+    appendMessage(responseData.message, 'Bot', 'assistant');
   } catch (e) {
-    appendMessage("Sorry, I couldn't process that request. Please try again.", 'Bot');
+    appendMessage("Sorry, I couldn't process that request. Please try again.", 'Bot', 'assistant');
     console.error('There was an error:', e);
   } finally {
     if (loadingMessage.parentNode) {
