@@ -1,6 +1,7 @@
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const chatContainer = document.getElementById('chat-container');
+const switchEngineBtn = document.getElementById('switch-engine');
 
 // Maintain a conversation history array
 let convHist = [
@@ -9,6 +10,9 @@ let convHist = [
     content: "You help users code."
   }
 ];
+
+// Keep track of the engine being used
+let currentEngine = "gpt-4";
 
 function appendMessage(content, sender, role, isCode = false) {
   // Add the new message to the conversation history
@@ -61,6 +65,28 @@ chatContainer.addEventListener('click', (e) => {
   }
 });
 
+function getFetchUrl() {
+  if (currentEngine === "gpt-4") {
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4';
+  } else {
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35Turbo';
+  }
+}
+
+switchEngineBtn.addEventListener('click', () => {
+  if (currentEngine === "gpt-4") {
+    currentEngine = "gpt-3.5-turbo";
+    switchEngineBtn.textContent = "Smart"; // Show "Smart" when GPT-3.5-Turbo is used
+    switchEngineBtn.classList.remove('fast-mode'); // Remove 'fast-mode' class
+    switchEngineBtn.classList.add('smart-mode'); // Add 'smart-mode' class
+  } else {
+    currentEngine = "gpt-4";
+    switchEngineBtn.textContent = "Fast"; // Show "Fast" when GPT-4 is used
+    switchEngineBtn.classList.remove('smart-mode'); // Remove 'smart-mode' class
+    switchEngineBtn.classList.add('fast-mode'); // Add 'fast-mode' class
+  }
+});
+
 messageForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -74,7 +100,7 @@ messageForm.addEventListener('submit', async (e) => {
   chatContainer.append(loadingMessage);
 
   try {
-    const response = await fetch('https://us-central1-codebot-project.cloudfunctions.net/chatBot', {
+    const response = await fetch(getFetchUrl(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

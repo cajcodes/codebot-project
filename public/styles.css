@@ -18,7 +18,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100vh;
   margin: 0;
   padding: 20px;
@@ -29,6 +28,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -46,18 +46,26 @@ body {
   color: var(--light-grey);
 }
 
+.chat-section {
+  position: relative;
+  width: 80vw;
+  height: calc(100vh - 250px); /* Adjusted to include logo and some space */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 #chat-container {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: calc(100% - 50px); /* Adjusted to include the form */
   overflow: auto;
-  width: 80vw;
+  width: 100%;
   background-color: var(--mid-blue);
   border-radius: 8px;
   padding: 20px;
   box-sizing: border-box;
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
 }
 
 #chat-container p {
@@ -94,8 +102,36 @@ body {
   background-color: var(--light-blue);
 }
 
+#switch-engine {
+  position: absolute;
+  top: -30px;  /* adjust this to position button */
+  left: 0;  /* adjust this to position button */
+  width: 80px;
+  height: 30px;
+  background-color: var(--accent-lime);
+  color: var(--light-grey);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;  /* Reduced padding */
+  cursor: pointer;
+  font-size: var(--font-size-input);
+  transition: background-color 0.3s ease;
+}
+
+#switch-engine:hover {
+  background-color: var(--light-blue);
+}
+
+#switch-engine.fast-mode {
+  background-color: var(--accent-lime);
+}
+
+#switch-engine.smart-mode {
+  background-color: var(--accent-crimson);
+}
+
 #chat-container div {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 pre {
@@ -118,4 +154,62 @@ pre {
 
 .copy-button:hover {
   background-color: #44475a;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 768px) {
+  .chat-section {
+    height: calc(100vh - 175px); /* Adjust these values as needed */
+  }
+
+  #chat-container {
+    height: calc(100% - 50px); /* Adjust these values as needed */
+  }
+
+  #message-form {
+    width: 100%;
+  }
+
+  .logo {
+    width: 125px; /* Decrease the logo size */
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .chat-section {
+    width: 95vw; /* Increase width usage */
+    height: calc(100vh - 260px); /* Decrease a bit considering smaller screens */
+  }
+  
+  #chat-container {
+    height: calc(100% - 40px); /* Adjusted to decrease the form size */
+  }
+
+  #message-form {
+    width: 95vw; /* Increase width usage */
+  }
+
+  #message-input {
+    font-size: 0.8em; /* Decrease a bit the font size */
+  }
+
+  #message-form button {
+    font-size: 0.8em; /* Decrease a bit the font size */
+  }
+
+  #switch-engine {
+    width: 60px;
+    height: 25px;
+    padding: 3px 8px;  /* Reduced padding */
+    font-size: 0.8em; /* Decrease a bit the font size */
+  }
+  
+  .logo {
+    width: 125px; /* Decrease the logo size */
+  }
+
+  #chat-container p {
+    font-size: 1.2em; /* Adjust this value to your preference */
+  }
 }
