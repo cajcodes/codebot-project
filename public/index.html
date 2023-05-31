@@ -1,75 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Assistant Chatbot</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #282a36;
-      color: #f8f8f2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    #chat-container {
-      display: flex;
-      flex-direction: column;
-      max-height: 70vh;
-      overflow: auto;
-      width: 100%;
-      max-width: 800px;
-      background-color: #44475a;
-      border-radius: 8px;
-      padding: 20px;
-      box-sizing: border-box;
-      box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
-    }
-
-    #message-form {
-      display: flex;
-      margin-top: 20px;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    #message-input {
-      flex-grow: 1;
-      border-radius: 8px;
-      padding: 10px;
-      margin-right: 10px;
-      border: none;
-      outline: none;
-      font-size: 16px;
-    }
-
-    #message-form button {
-      background-color: #6272a4;
-      color: #f8f8f2;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    #message-form button:hover {
-      background-color: #44475a;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <div id="chat-container"></div>
-
-  <form id="message-form">
-    <input type="text" id="message-input" placeholder="Type your code...">
-    <button type="submit">Send</button>
-  </form>
+  <main>
+    <div class="logo-container">
+      <img src="https://uploads-ssl.webflow.com/6383aec1428da049fa258d97/64776e5b7b45fceaadf47cc6_shadow-lime.svg" alt="CAJ Codes Logo" class="logo">
+    </div>
+    <div id="chat-container"></div>
+    <form id="message-form">
+      <input type="text" id="message-input" placeholder="Type your code...">
+      <button type="submit">Send</button>
+    </form>
+  </main>
 
   <script src="main.js"></script>
 </body>

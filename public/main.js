@@ -1,16 +1,63 @@
-document.getElementById('message-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
+const messageForm = document.getElementById('message-form');
+const messageInput = document.getElementById('message-input');
+const chatContainer = document.getElementById('chat-container');
 
-  const messageInput = document.getElementById('message-input');
-  const chatContainer = document.getElementById('chat-container');
+function appendMessage(content, sender, isCode = false) {
+  const messageElement = document.createElement('div');
+
+  const parts = content.split('```');
+  parts.forEach((part, index) => {
+    const isCodePart = index % 2 !== 0;
+
+    if (isCodePart) {
+      const pre = document.createElement('pre');
+      const code = document.createElement('code');
+      code.id = `code-${Date.now()}`;
+      code.textContent = part;
+
+      const copyBtn = document.createElement('button');
+      copyBtn.textContent = 'Copy code';
+      copyBtn.classList.add('copy-button');
+      copyBtn.dataset.codeId = code.id;
+
+      pre.append(code);
+      messageElement.append(`${sender} (code):\n`, pre, copyBtn);
+    } else {
+      const p = document.createElement('p');
+      p.textContent = `${sender}: ${part}`;
+      messageElement.append(p);
+    }
+  });
+
+  messageElement.classList.add(sender.toLowerCase());
+  chatContainer.append(messageElement);
+}
+
+chatContainer.addEventListener('click', (e) => {
+  if(e.target.classList.contains('copy-button')) {
+    const codeId = e.target.dataset.codeId;
+    const codeSnippet = document.getElementById(codeId);
+
+    const range = document.createRange();
+    range.selectNode(codeSnippet);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+
+    e.target.textContent = 'Copied!';
+    setTimeout(() => e.target.textContent = 'Copy code', 2000);
+  }
+});
+
+messageForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
   const message = messageInput.value;
   messageInput.value = '';
 
-  chatContainer.innerHTML += `<p>You: ${message}</p>`;
-  chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
+  appendMessage(message, 'You');
 
-  // Display loading text
   const loadingMessage = document.createElement('p');
   loadingMessage.textContent = 'Bot is thinking...';
   chatContainer.append(loadingMessage);
@@ -41,15 +88,14 @@ document.getElementById('message-form').addEventListener('submit', async (e) => 
 
     const responseData = await response.json();
 
-    chatContainer.innerHTML += `<p>Bot: ${responseData.message}</p>`;
+    appendMessage(responseData.message, 'Bot');
   } catch (e) {
-    chatContainer.innerHTML += `<p>Bot: Sorry, I couldn't process that request. Please try again.</p>`;
+    appendMessage("Sorry, I couldn't process that request. Please try again.", 'Bot');
     console.error('There was an error:', e);
   } finally {
-    // Remove loading text in all circumstances
     if (loadingMessage.parentNode) {
       loadingMessage.parentNode.removeChild(loadingMessage);
     }
-    chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 });
