@@ -43,7 +43,7 @@ function appendMessage(content, sender, role, isCode = false) {
       messageElement.append(p);
     }
   });
-
+  
   messageElement.classList.add(sender.toLowerCase());
   chatContainer.append(messageElement);
 }
@@ -76,12 +76,12 @@ function getFetchUrl() {
 switchEngineBtn.addEventListener('click', () => {
   if (currentEngine === "gpt-4") {
     currentEngine = "gpt-3.5-turbo";
-    switchEngineBtn.textContent = "Smart"; // Show "Smart" when GPT-3.5-Turbo is used
+    switchEngineBtn.textContent = "Fast"; // Show "Smart" when GPT-3.5-Turbo is used
     switchEngineBtn.classList.remove('fast-mode'); // Remove 'fast-mode' class
     switchEngineBtn.classList.add('smart-mode'); // Add 'smart-mode' class
   } else {
     currentEngine = "gpt-4";
-    switchEngineBtn.textContent = "Fast"; // Show "Fast" when GPT-4 is used
+    switchEngineBtn.textContent = "Smart"; // Show "Fast" when GPT-4 is used
     switchEngineBtn.classList.remove('smart-mode'); // Remove 'smart-mode' class
     switchEngineBtn.classList.add('fast-mode'); // Add 'fast-mode' class
   }
@@ -92,12 +92,17 @@ messageForm.addEventListener('submit', async (e) => {
 
   const message = messageInput.value;
   messageInput.value = '';
+  // Add this line to blur the input field and close the keyboard
+  messageInput.blur();
 
   appendMessage(message, 'You', 'user');
 
   const loadingMessage = document.createElement('p');
   loadingMessage.textContent = 'Bot is thinking...';
   chatContainer.append(loadingMessage);
+
+  // Scroll to the bottom
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
     const response = await fetch(getFetchUrl(), {

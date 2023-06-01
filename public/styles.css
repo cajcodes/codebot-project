@@ -108,7 +108,7 @@ body {
   left: 0;  /* adjust this to position button */
   width: 80px;
   height: 30px;
-  background-color: var(--accent-lime);
+  background-color: var(--accent-crimson);
   color: var(--light-grey);
   border: none;
   border-radius: 8px;
@@ -119,15 +119,15 @@ body {
 }
 
 #switch-engine:hover {
-  background-color: var(--light-blue);
+  background-color: var(--accent-crimson);
 }
 
 #switch-engine.fast-mode {
-  background-color: var(--accent-lime);
+  background-color: var(--accent-crimson);
 }
 
 #switch-engine.smart-mode {
-  background-color: var(--accent-crimson);
+  background-color: var(--accent-lime);
 }
 
 #chat-container div {
@@ -138,6 +138,7 @@ pre {
   background-color: #1e1e1e;
   padding: 10px;
   border-radius: 5px;
+  overflow-x: auto;
 }
 
 .copy-button {
@@ -165,6 +166,11 @@ pre {
 
   #chat-container {
     height: calc(100% - 50px); /* Adjust these values as needed */
+  }
+
+  body {
+    overflow-x: hidden; /* this will prevent horizontal scrolling */
+    overflow-y: hidden; /* this will prevent vertical scrolling */
   }
 
   #message-form {
