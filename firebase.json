@@ -24,5 +24,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "extensions": {
+    "firestore-palm-chatbot": "googlecloud/firestore-palm-chatbot@0.1.4"
   }
 }
