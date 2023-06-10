@@ -68,7 +68,7 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
 
 exports.chatBotGooglePaLM2 = functions.https.onRequest(async (req, res) => {
   corsMiddleware(req, res, async () => {
-    const { instances, parameters } = req.body;
+    const { prompt } = req.body;
 
     try {
       const API_ENDPOINT = "us-central1-aiplatform.googleapis.com";
@@ -81,13 +81,27 @@ exports.chatBotGooglePaLM2 = functions.https.onRequest(async (req, res) => {
       });
       const accessToken = await client.getAccessToken();
 
-      const response = await axios.post(`https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/us-central1/publishers/google/models/${MODEL_ID}:predict`, {
-        instances,
-        parameters
+      const response = await axios.post(`https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/us-central1/models/${MODEL_ID}:predict`, {
+        instances: [
+          {
+            messages: [
+              {
+                author: "user",
+                content: prompt,
+              }
+            ]
+          }
+        ],
+        parameters: {
+          "temperature": 0.2,
+          "maxOutputTokens": 256,
+          "topP": 0.8,
+          "topK": 40
+        }
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          'Authorization': `Bearer ${accessToken.token}`
         }
       });
 
@@ -98,7 +112,7 @@ exports.chatBotGooglePaLM2 = functions.https.onRequest(async (req, res) => {
         content: message.content,
       }));
 
-      res.json(chatResponse); // send the chatResponse directly
+      res.json({ response: chatResponse });
 
     } catch (error) {
       console.error(error);
