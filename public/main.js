@@ -1,7 +1,9 @@
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const chatContainer = document.getElementById('chat-container');
-const switchEngineBtn = document.getElementById('switch-engine');
+const switchEngineBtnGpt35 = document.getElementById('engine-gpt-3.5');
+const switchEngineBtnGpt4 = document.getElementById('engine-gpt-4');
+const switchEngineBtnPalm = document.getElementById('engine-palm');
 
 // Maintain a conversation history array
 let convHist = [
@@ -13,6 +15,14 @@ let convHist = [
 
 // Keep track of the engine being used
 let currentEngine = "gpt-4";
+
+function switchEngine(engine) {
+  currentEngine = engine;
+}
+
+switchEngineBtnGpt35.addEventListener('click', () => switchEngine('gpt-3.5'));
+switchEngineBtnGpt4.addEventListener('click', () => switchEngine('gpt-4'));
+switchEngineBtnPalm.addEventListener('click', () => switchEngine('palm'));
 
 function appendMessage(content, sender, role, isCode = false) {
   // Add the new message to the conversation history
@@ -68,24 +78,13 @@ chatContainer.addEventListener('click', (e) => {
 function getFetchUrl() {
   if (currentEngine === "gpt-4") {
     return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4';
-  } else {
+  } else if (currentEngine === "gpt-3.5") {
     return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35Turbo';
+  } else if (currentEngine === "palm") {
+    // Add the URL for your PaLM engine
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotPalm';
   }
 }
-
-switchEngineBtn.addEventListener('click', () => {
-  if (currentEngine === "gpt-4") {
-    currentEngine = "gpt-3.5-turbo";
-    switchEngineBtn.textContent = "Fast"; // Show "Smart" when GPT-3.5-Turbo is used
-    switchEngineBtn.classList.remove('fast-mode'); // Remove 'fast-mode' class
-    switchEngineBtn.classList.add('smart-mode'); // Add 'smart-mode' class
-  } else {
-    currentEngine = "gpt-4";
-    switchEngineBtn.textContent = "Smart"; // Show "Fast" when GPT-4 is used
-    switchEngineBtn.classList.remove('smart-mode'); // Remove 'smart-mode' class
-    switchEngineBtn.classList.add('fast-mode'); // Add 'fast-mode' class
-  }
-});
 
 messageForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -112,14 +111,24 @@ messageForm.addEventListener('submit', async (e) => {
       },
       body: JSON.stringify({ messages: convHist }) // Send the conversation history instead
     });
-
+  
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
+  
     const responseData = await response.json();
-
-    appendMessage(responseData.message, 'Bot', 'assistant');
+  
+    if (currentEngine === "palm") {
+      // Handle response from PaLM engine which is an array of messages
+      responseData.forEach(msgObj => {
+        const sender = msgObj.author === 'user' ? 'You' : 'Bot';
+        const role = msgObj.author === 'user' ? 'user' : 'assistant';
+        appendMessage(msgObj.content, sender, role);
+      });
+    } else {
+      // Handle response from GPT engines
+      appendMessage(responseData.message, 'Bot', 'assistant');
+    }
   } catch (e) {
     appendMessage("Sorry, I couldn't process that request. Please try again.", 'Bot', 'assistant');
     console.error('There was an error:', e);
@@ -128,5 +137,5 @@ messageForm.addEventListener('submit', async (e) => {
       loadingMessage.parentNode.removeChild(loadingMessage);
     }
     chatContainer.scrollTop = chatContainer.scrollHeight;
-  }
+  }  
 });

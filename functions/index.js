@@ -32,12 +32,8 @@ exports.chatBotGpt4 = functions.https.onRequest(async (req, res) => {
       });
 
       const chatResponse = response.data.choices[0].message.content.trim();
-
-      // Add the headers to the response before sending it
-      res.set('Access-Control-Allow-Origin', req.headers.origin);
-      res.set('Access-Control-Allow-Methods', 'GET, POST');
-
       res.json({ message: chatResponse });
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'An error occurred while processing your request' });
@@ -61,12 +57,8 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
       });
 
       const chatResponse = response.data.choices[0].message.content.trim();
-
-      // Add the headers to the response before sending it
-      res.set('Access-Control-Allow-Origin', req.headers.origin);
-      res.set('Access-Control-Allow-Methods', 'GET, POST');
-
       res.json({ message: chatResponse });
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'An error occurred while processing your request' });
@@ -106,11 +98,8 @@ exports.chatBotGooglePaLM2 = functions.https.onRequest(async (req, res) => {
         content: message.content,
       }));
 
-      // Add the headers to the response before sending it
-      res.set('Access-Control-Allow-Origin', req.headers.origin);
-      res.set('Access-Control-Allow-Methods', 'GET, POST');
+      res.json(chatResponse); // send the chatResponse directly
 
-      res.json({ message: chatResponse });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'An error occurred while processing your request' });

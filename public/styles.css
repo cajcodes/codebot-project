@@ -11,6 +11,11 @@
   --font-size-input: 1em;
 }
 
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: var(--dark-blue);
@@ -49,7 +54,7 @@ body {
 .chat-section {
   position: relative;
   width: 80vw;
-  height: calc(100vh - 250px); /* Adjusted to include logo and some space */
+  height: calc(100vh - 250px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -58,7 +63,7 @@ body {
 #chat-container {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 50px); /* Adjusted to include the form */
+  height: calc(100% - 50px);
   overflow: auto;
   width: 100%;
   background-color: var(--mid-blue);
@@ -69,7 +74,7 @@ body {
 }
 
 #chat-container p {
-  font-size: 1.5em; /* Adjust this value to your preference */
+  font-size: 1.5em;
 }
 
 #message-form {
@@ -102,31 +107,35 @@ body {
   background-color: var(--light-blue);
 }
 
-#switch-engine {
+.engine-button {
   position: absolute;
-  top: -30px;  /* adjust this to position button */
-  left: 0;  /* adjust this to position button */
-  width: 80px;
+  top: -30px;
+  width: 60px;
   height: 30px;
-  background-color: var(--accent-crimson);
+  background-color: var(--mid-blue);
   color: var(--light-grey);
   border: none;
   border-radius: 8px;
-  padding: 5px 10px;  /* Reduced padding */
+  padding: 5px 10px;
   cursor: pointer;
   font-size: var(--font-size-input);
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
-#switch-engine:hover {
-  background-color: var(--accent-crimson);
+#engine-gpt-3.5 {
+  left: 0;
 }
 
-#switch-engine.fast-mode {
-  background-color: var(--accent-crimson);
+#engine-gpt-4 {
+  left: 70px;
 }
 
-#switch-engine.smart-mode {
+#engine-palm {
+  left: 140px;
+}
+
+.engine-button:hover {
   background-color: var(--accent-lime);
 }
 
@@ -161,16 +170,16 @@ pre {
 
 @media screen and (max-width: 768px) {
   .chat-section {
-    height: calc(100vh - 175px); /* Adjust these values as needed */
+    height: calc(100vh - 175px);
   }
 
   #chat-container {
-    height: calc(100% - 50px); /* Adjust these values as needed */
+    height: calc(100% - 50px);
   }
 
   body {
-    overflow-x: hidden; /* this will prevent horizontal scrolling */
-    overflow-y: hidden; /* this will prevent vertical scrolling */
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   #message-form {
@@ -178,44 +187,52 @@ pre {
   }
 
   .logo {
-    width: 125px; /* Decrease the logo size */
+    width: 125px;
+  }
+
+  .engine-button {
+    width: 50px;
+    height: 25px;
+    padding: 3px 8px;
+    font-size: 0.8em;
+  }
+
+  #engine-gpt-4 {
+    left: 60px;
+  }
+
+  #engine-palm {
+    left: 120px;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .chat-section {
-    width: 95vw; /* Increase width usage */
-    height: calc(100vh - 260px); /* Decrease a bit considering smaller screens */
+    width: 95vw;
+    height: calc(100vh - 260px);
   }
   
   #chat-container {
-    height: calc(100% - 40px); /* Adjusted to decrease the form size */
+    height: calc(100% - 40px);
   }
 
   #message-form {
-    width: 95vw; /* Increase width usage */
+    width: 95vw;
   }
 
   #message-input {
-    font-size: 0.8em; /* Decrease a bit the font size */
+    font-size: 0.8em;
   }
 
   #message-form button {
-    font-size: 0.8em; /* Decrease a bit the font size */
-  }
-
-  #switch-engine {
-    width: 60px;
-    height: 25px;
-    padding: 3px 8px;  /* Reduced padding */
-    font-size: 0.8em; /* Decrease a bit the font size */
+    font-size: 0.8em;
   }
   
   .logo {
-    width: 125px; /* Decrease the logo size */
+    width: 125px;
   }
 
   #chat-container p {
-    font-size: 1.2em; /* Adjust this value to your preference */
+    font-size: 1.2em;
   }
 }
