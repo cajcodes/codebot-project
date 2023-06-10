@@ -104,12 +104,24 @@ messageForm.addEventListener('submit', async (e) => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
+    let body;
+    
+    if (currentEngine === "palm") {
+      // Assuming that for PaLM2, the last message in convHist is the prompt
+      body = JSON.stringify({
+        prompt: convHist[convHist.length - 1].content,
+      });
+    } else {
+      // For GPT engines, the conversation history is sent
+      body = JSON.stringify({ messages: convHist });
+    }
+  
     const response = await fetch(getFetchUrl(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ messages: convHist }) // Send the conversation history instead
+      body: body
     });
   
     if (!response.ok) {
@@ -120,11 +132,8 @@ messageForm.addEventListener('submit', async (e) => {
   
     if (currentEngine === "palm") {
       // Handle response from PaLM engine which is an array of messages
-      responseData.forEach(msgObj => {
-        const sender = msgObj.author === 'user' ? 'You' : 'Bot';
-        const role = msgObj.author === 'user' ? 'user' : 'assistant';
-        appendMessage(msgObj.content, sender, role);
-      });
+      // Assuming responseData is an object with 'response' field
+      appendMessage(responseData.response, 'Bot', 'assistant');
     } else {
       // Handle response from GPT engines
       appendMessage(responseData.message, 'Bot', 'assistant');
