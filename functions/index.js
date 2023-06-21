@@ -3,7 +3,7 @@ const axios = require('axios');
 const cors = require('cors');
 const { google } = require('google-auth-library');
 
-const whitelist = ['https://www.cajcodes.com', 'https://cajcodes.com', 'https://codebot-project.web.app', 'http://localhost:3000', 'http://localhost:5000', 'https://chrisjones.webflow.io', 'https://www.webchats.ai', 'https://ruggededge-demo.webflow.io', 'https://ruggededge.ai', 'https://www.ruggededge.ai'];
+const whitelist = ['https://www.cajcodes.com', 'https://cajcodes.com', 'https://codebot-project.web.app', 'http://localhost:3000', 'http://localhost:5000', 'https://chrisjones.webflow.io', 'https://www.webchats.ai', 'https://ruggededge-demo.webflow.io', 'https://ruggededge.ai', 'https://www.ruggededge.ai', 'https://www.phonoscopefiber.com', 'https://phonoscopefiber.com'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -47,7 +47,7 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-16k",
         messages,
       }, {
         headers: {
