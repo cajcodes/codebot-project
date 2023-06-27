@@ -47,7 +47,7 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-3.5-turbo-16k",
+        model: "gpt-3.5-turbo-0613",
         messages,
       }, {
         headers: {
