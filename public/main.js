@@ -107,7 +107,7 @@ chatContainer.addEventListener('click', (e) => {
   }
     // handle clicks on dynamic buttons
     if(e.target.classList.contains('dynamic-button')) {
-      const url = e.target.dataset.url;
+      const url = e.target.dataset.href;
       window.open(url, '_blank');
     }
 });

@@ -146,6 +146,7 @@ body {
   font-size: var(--font-size-input);
   transition: background-color 0.3s ease;
   margin: 5px;
+  line-height: -30px;
 }
 
 .dynamic-button:hover {
