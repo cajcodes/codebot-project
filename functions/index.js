@@ -47,7 +47,7 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-3.5-turbo-0613",
+        model: "gpt-3.5-turbo-16k",
         messages,
       }, {
         headers: {
@@ -66,56 +66,27 @@ exports.chatBotGpt35Turbo = functions.https.onRequest(async (req, res) => {
   });
 });
 
-exports.chatBotGooglePaLM2 = functions.https.onRequest(async (req, res) => {
+exports.chatBotGpt4Large = functions.https.onRequest(async (req, res) => {
   corsMiddleware(req, res, async () => {
-    const { prompt } = req.body;
+    const { messages } = req.body;
 
     try {
-      const API_ENDPOINT = "us-central1-aiplatform.googleapis.com";
-      const PROJECT_ID = "codebot-project";
-      const MODEL_ID = "chat-bison@001";
-
-      // Use google-auth-library to generate the access token
-      const client = new google.auth.GoogleAuth({
-        scopes: ['https://www.googleapis.com/auth/cloud-platform']
-      });
-      const accessToken = await client.getAccessToken();
-
-      const response = await axios.post(`https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/us-central1/models/${MODEL_ID}:predict`, {
-        instances: [
-          {
-            messages: [
-              {
-                author: "user",
-                content: prompt,
-              }
-            ]
-          }
-        ],
-        parameters: {
-          "temperature": 0.2,
-          "maxOutputTokens": 256,
-          "topP": 0.8,
-          "topK": 40
-        }
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: "gpt-4-32k-0613",
+        messages,
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken.token}`
+          'Authorization': `Bearer ${functions.config().openai.key}`
         }
       });
 
-      // Extract relevant information from the response
-      const messages = response.data.messages;
-      const chatResponse = messages.map(message => ({
-        author: message.author === '0' ? 'user' : 'chatbot',
-        content: message.content,
-      }));
-
-      res.json({ response: chatResponse });
+      const chatResponse = response.data.choices[0].message.content.trim();
+      res.json({ message: chatResponse });
 
     } catch (error) {
-      console.error(error);
+      console.error('Error Message:', error.message);
+      console.error('Error Response Data:', error.response?.data);
       res.status(500).json({ message: 'An error occurred while processing your request' });
     }
   });

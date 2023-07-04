@@ -60,6 +60,13 @@ body {
   flex-direction: column;
 }
 
+/* Added display flex and justify content space between */
+.engine-button-container {
+  display: flex;
+  gap: 5px; /* Adjust this value as necessary for your desired space between buttons */
+  padding-bottom: 5px; /* Keeps space between buttons and chat container */
+}
+
 #chat-container {
   display: flex;
   flex-direction: column;
@@ -77,9 +84,11 @@ body {
   font-size: 1.5em;
 }
 
+/* Added padding-top 5px */
 #message-form {
   display: flex;
   width: 80vw;
+  padding-top: 5px;
 }
 
 #message-input {
@@ -108,31 +117,17 @@ body {
 }
 
 .engine-button {
-  position: absolute;
-  top: -30px;
-  width: 60px;
+  width: auto;
   height: 30px;
   background-color: var(--mid-blue);
   color: var(--light-grey);
   border: none;
   border-radius: 8px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   cursor: pointer;
   font-size: var(--font-size-input);
   transition: background-color 0.3s ease;
   text-align: center;
-}
-
-#engine-gpt-3.5 {
-  left: 0;
-}
-
-#engine-gpt-4 {
-  left: 70px;
-}
-
-#engine-palm {
-  left: 140px;
 }
 
 .engine-button:hover {
@@ -191,18 +186,10 @@ pre {
   }
 
   .engine-button {
-    width: 50px;
+    width: auto;
     height: 25px;
     padding: 3px 8px;
     font-size: 0.8em;
-  }
-
-  #engine-gpt-4 {
-    left: 60px;
-  }
-
-  #engine-palm {
-    left: 120px;
   }
 }
 

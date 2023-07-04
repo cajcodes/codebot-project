@@ -82,7 +82,7 @@ function getFetchUrl() {
     return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35Turbo';
   } else if (currentEngine === "palm") {
     // Add the URL for your PaLM engine
-    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGooglePaLM2';
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4Large';
   }
 }
 
