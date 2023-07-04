@@ -72,7 +72,33 @@ exports.chatBotGpt4Large = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-4-32k-0613",
+        model: "gpt-4-32k",
+        messages,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${functions.config().openai.key}`
+        }
+      });
+
+      const chatResponse = response.data.choices[0].message.content.trim();
+      res.json({ message: chatResponse });
+
+    } catch (error) {
+      console.error('Error Message:', error.message);
+      console.error('Error Response Data:', error.response?.data);
+      res.status(500).json({ message: 'An error occurred while processing your request' });
+    }
+  });
+});
+
+exports.chatBotGpt35TurboLarge = functions.https.onRequest(async (req, res) => {
+  corsMiddleware(req, res, async () => {
+    const { messages } = req.body;
+
+    try {
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: "gpt-3.5-turbo-16k",
         messages,
       }, {
         headers: {

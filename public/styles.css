@@ -81,7 +81,7 @@ body {
 }
 
 #chat-container p {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 /* Added padding-top 5px */
@@ -159,6 +159,10 @@ pre {
 
 .copy-button:hover {
   background-color: #44475a;
+}
+
+.engine-button.active {
+  background-color: var(--accent-lime);
 }
 
 /* Media queries */

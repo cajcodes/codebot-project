@@ -4,25 +4,41 @@ const chatContainer = document.getElementById('chat-container');
 const switchEngineBtnGpt35 = document.getElementById('engine-gpt-3.5');
 const switchEngineBtnGpt4 = document.getElementById('engine-gpt-4');
 const switchEngineBtnPalm = document.getElementById('engine-palm');
+const converter = new showdown.Converter();
 
-// Maintain a conversation history array
 let convHist = [
   {
     role: "system",
-    content: "You help users code."
+    content: "You're the cheeky AI Helpdesk on Christopher's chatbot demo website, webchats.ai. You are tasked with showing off how awesome chatbots are. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information."
   }
 ];
 
-// Keep track of the engine being used
 let currentEngine = "gpt-4";
 
 function switchEngine(engine) {
   currentEngine = engine;
+  
+  // Remove 'active' class from all buttons
+  switchEngineBtnGpt35.classList.remove('active');
+  switchEngineBtnGpt4.classList.remove('active');
+  switchEngineBtnPalm.classList.remove('active');
+
+  // Add 'active' class to the clicked button
+  if (engine === 'gpt-3.5') {
+    switchEngineBtnGpt35.classList.add('active');
+  } else if (engine === 'gpt-4') {
+    switchEngineBtnGpt4.classList.add('active');
+  } else if (engine === 'palm') {
+    switchEngineBtnPalm.classList.add('active');
+  }
 }
 
 switchEngineBtnGpt35.addEventListener('click', () => switchEngine('gpt-3.5'));
 switchEngineBtnGpt4.addEventListener('click', () => switchEngine('gpt-4'));
 switchEngineBtnPalm.addEventListener('click', () => switchEngine('palm'));
+
+// Initialize first button as 'active'
+switchEngine(currentEngine);
 
 function appendMessage(content, sender, role, isCode = false) {
   // Add the new message to the conversation history
@@ -46,10 +62,10 @@ function appendMessage(content, sender, role, isCode = false) {
       copyBtn.dataset.codeId = code.id;
 
       pre.append(code);
-      messageElement.append(`${sender} (code):\n`, pre, copyBtn);
+      messageElement.append(pre, copyBtn);
     } else {
       const p = document.createElement('p');
-      p.textContent = `${sender}: ${part}`;
+      p.innerHTML = converter.makeHtml(part);
       messageElement.append(p);
     }
   });
@@ -82,7 +98,7 @@ function getFetchUrl() {
     return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35Turbo';
   } else if (currentEngine === "palm") {
     // Add the URL for your PaLM engine
-    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4Large';
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35TurboLarge';
   }
 }
 
