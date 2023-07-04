@@ -134,6 +134,31 @@ body {
   background-color: var(--accent-lime);
 }
 
+.dynamic-button {
+  width: auto;
+  height: 30px;
+  background-color: var(--mid-blue);
+  color: var(--light-grey);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-size: var(--font-size-input);
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+.dynamic-button:hover {
+  background-color: var(--accent-lime);
+}
+
+/* Your row of buttons */
+#button-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 #chat-container div {
   margin-bottom: 0.5em;
 }

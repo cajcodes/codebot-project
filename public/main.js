@@ -6,10 +6,27 @@ const switchEngineBtnGpt4 = document.getElementById('engine-gpt-4');
 const switchEngineBtnPalm = document.getElementById('engine-palm');
 const converter = new showdown.Converter();
 
+// The link buttons
+const linkBtnUserGuides = document.getElementById('btn-user-guides');
+const linkBtnReportOutage = document.getElementById('btn-report-outage');
+const linkBtnGettingStarted = document.getElementById('btn-getting-started');
+const linkBtnCheckAvailability = document.getElementById('btn-check-availability');
+const linkBtnSignUp = document.getElementById('btn-sign-up');
+
+// Update a button's link and text
+function updateButtonLink(button, linkInfo) {
+  button.textContent = linkInfo.text;
+  button.href = linkInfo.url;
+}
+
 let convHist = [
   {
     role: "system",
     content: "You're the cheeky AI Helpdesk on Christopher's chatbot demo website, webchats.ai. You are tasked with showing off how awesome chatbots are. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information."
+  },
+  {
+    "role": "system",
+    "content": '{"changeWebsiteLink": {"button": "string", "url": "string"}}'
   }
 ];
 
@@ -120,14 +137,7 @@ messageForm.addEventListener('submit', async (e) => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
-    let requestBody;
-    
-    // Define the request body based on the selected engine
-    if (currentEngine === "palm") {
-      requestBody = JSON.stringify({ prompt: message });
-    } else {
-      requestBody = JSON.stringify({ messages: convHist });
-    }
+    const requestBody = JSON.stringify({ messages: convHist });
 
     const response = await fetch(getFetchUrl(), {
       method: 'POST',
@@ -142,19 +152,34 @@ messageForm.addEventListener('submit', async (e) => {
     }
   
     const responseData = await response.json();
-  
-    if (currentEngine === "palm") {
-      // Handle response from PaLM engine
-      const chatResponse = responseData.response;
-      chatResponse.forEach(msgObj => {
-        const sender = msgObj.author === 'user' ? 'You' : 'Bot';
-        const role = msgObj.author === 'user' ? 'user' : 'assistant';
-        appendMessage(msgObj.content, sender, role);
-      });
-    } else {
-      // Handle response from GPT engines
-      appendMessage(responseData.message, 'Bot', 'assistant');
+
+    // Check if the responseData has linkInfo and update the corresponding button
+    if(responseData.linkInfo) {
+      switch(responseData.linkInfo.button) {
+        case "User Guides":
+          updateButtonLink(linkBtnUserGuides, responseData.linkInfo);
+          break;
+        case "Report Outage":
+          updateButtonLink(linkBtnReportOutage, responseData.linkInfo);
+          break;
+        case "Getting Started":
+          updateButtonLink(linkBtnGettingStarted, responseData.linkInfo);
+          break;
+        case "Check Availability":
+          updateButtonLink(linkBtnCheckAvailability, responseData.linkInfo);
+          break;
+        case "Sign Up":
+          updateButtonLink(linkBtnSignUp, responseData.linkInfo);
+          break;
+        default:
+          console.log("Unrecognized button name in linkInfo");
+          break;
+      }
     }
+
+    // Handle response from GPT engines
+    appendMessage(responseData.message, 'Bot', 'assistant');
+    
   } catch (e) {
     appendMessage("Sorry, I couldn't process that request. Please try again.", 'Bot', 'assistant');
     console.error('There was an error:', e);
