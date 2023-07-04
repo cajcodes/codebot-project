@@ -4,30 +4,27 @@ const chatContainer = document.getElementById('chat-container');
 const switchEngineBtnGpt35 = document.getElementById('engine-gpt-3.5');
 const switchEngineBtnGpt4 = document.getElementById('engine-gpt-4');
 const switchEngineBtnPalm = document.getElementById('engine-palm');
-const converter = new showdown.Converter();
 
-// The link buttons
-const linkBtnUserGuides = document.getElementById('btn-user-guides');
-const linkBtnReportOutage = document.getElementById('btn-report-outage');
-const linkBtnGettingStarted = document.getElementById('btn-getting-started');
-const linkBtnCheckAvailability = document.getElementById('btn-check-availability');
-const linkBtnSignUp = document.getElementById('btn-sign-up');
-
-// Update a button's link and text
-function updateButtonLink(button, linkInfo) {
-  button.textContent = linkInfo.text;
-  button.href = linkInfo.url;
-}
+// Initialize the Markdown converter with custom rendering for links
+const converter = new showdown.Converter({
+  extensions: [
+    function() {
+      return [
+        {
+          type: 'lang',
+          regex: /\[([^\]]+)\]\(([^)]+)\)/g,
+          replace: '<button class="dynamic-button" data-href="$2">$1</button>'
+        }
+      ];
+    }
+  ]
+});
 
 let convHist = [
   {
     role: "system",
-    content: "You're the cheeky AI Helpdesk on Christopher's chatbot demo website, webchats.ai. You are tasked with showing off how awesome chatbots are. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information."
+    content: "You're the cheeky AI Helpdesk on Christopher's chatbot demo website, webchats.ai. You are tasked with showing off how awesome chatbots are. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information. If asked, you can provide users with links to other chatbot demos on the website, such as the widget chatbot [here](https://cajcodes.com/bot.html), and the standalone chatbot [here](https://cajcodes.com/webchats.html)."
   },
-  {
-    "role": "system",
-    "content": '{"changeWebsiteLink": {"button": "string", "url": "string"}}'
-  }
 ];
 
 let currentEngine = "gpt-4";
@@ -105,7 +102,14 @@ chatContainer.addEventListener('click', (e) => {
 
     e.target.textContent = 'Copied!';
     setTimeout(() => e.target.textContent = 'Copy code', 2000);
+  } else if(e.target.classList.contains('hyperlink-button')) {
+    window.open(e.target.dataset.href, '_blank');
   }
+    // handle clicks on dynamic buttons
+    if(e.target.classList.contains('dynamic-button')) {
+      const url = e.target.dataset.url;
+      window.open(url, '_blank');
+    }
 });
 
 function getFetchUrl() {
@@ -152,30 +156,6 @@ messageForm.addEventListener('submit', async (e) => {
     }
   
     const responseData = await response.json();
-
-    // Check if the responseData has linkInfo and update the corresponding button
-    if(responseData.linkInfo) {
-      switch(responseData.linkInfo.button) {
-        case "User Guides":
-          updateButtonLink(linkBtnUserGuides, responseData.linkInfo);
-          break;
-        case "Report Outage":
-          updateButtonLink(linkBtnReportOutage, responseData.linkInfo);
-          break;
-        case "Getting Started":
-          updateButtonLink(linkBtnGettingStarted, responseData.linkInfo);
-          break;
-        case "Check Availability":
-          updateButtonLink(linkBtnCheckAvailability, responseData.linkInfo);
-          break;
-        case "Sign Up":
-          updateButtonLink(linkBtnSignUp, responseData.linkInfo);
-          break;
-        default:
-          console.log("Unrecognized button name in linkInfo");
-          break;
-      }
-    }
 
     // Handle response from GPT engines
     appendMessage(responseData.message, 'Bot', 'assistant');

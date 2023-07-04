@@ -137,11 +137,11 @@ body {
 .dynamic-button {
   width: auto;
   height: 30px;
-  background-color: var(--mid-blue);
+  background-color: var(--accent-crimson);
   color: var(--light-grey);
   border: none;
   border-radius: 8px;
-  padding: 5px 15px;
+  padding: 10px 15px 10px;
   cursor: pointer;
   font-size: var(--font-size-input);
   transition: background-color 0.3s ease;

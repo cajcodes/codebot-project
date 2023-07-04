@@ -1,0 +1,151 @@
+<div id="c" style="position:fixed;bottom:2%;right:2%;z-index:9999;">
+    <img id="t" src="https://uploads-ssl.webflow.com/6383aec1428da049fa258d97/649f10f7b1af8952d07f1cd6_stormito.svg" alt="Droid Hunter" style="width:140px;height:140px;border-radius:50%;cursor:pointer;">
+    <div id="tt" style="display:block;position:absolute;bottom:70%;left:50%;transform:translateX(-75%);background:#fff;padding:5px 10px;border-radius:10px;font-size:18px;color:#000;position:relative;">These are the droids you're looking for</div>
+    <div id="cl" style="display:none;position:absolute;top:0;right:0;width:40px;height:40px;background:#FFB6C1;border-radius:50%;text-align:center;line-height:40px;color:#000;font-size:22px;font-weight:bold;cursor:pointer;margin:3px;">×</div>
+    <div id="m" style="display:none;width:80vw;max-width:600px;height:50vh;max-height:400px;background:#fff;border:1px solid #ccc;padding:30px;overflow-y:auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+      <div id="am" style="color:#1d4e89;">Greetings, curious one! I am your enigmatic guide to the future of digital networking. Unravel the mystery by asking me for hints, but remember, the full revelation is subject to Chris's fleeting whims and fancies.</div>
+      <div id="ti" style="display:none;position:absolute;bottom:75px;left:5px;background:#e8f5e9;color:#000;font-size:18px;padding:5px 10px;border-radius:12px;">I'm typing...</div>
+    </div>
+    <form id="f" style="display:none;margin-top:20px;">
+      <input id="i" type="text" style="flex-grow:1;padding:12px;font-size:18px;border:1px solid #ccc;border-radius:6px;margin-right:10px;" placeholder="Type your message...">
+      <button type="submit" style="padding:12px 24px;background:#e3f2fd;color:#000;border:none;font-size:18px;border-radius:6px;">Send</button>
+    </form>
+  </div>
+  <style>
+    #tt{position:absolute;top:-200px;left:50%;transform:translateX(-50%);background:#ffffff;padding:5px 10px;border-radius:10px;font-size:16px;color:#000000;position:relative;}
+    #tt::before{content:"";position:absolute;bottom:-5px;left:50%;transform:translateX(-50%) rotate(225deg);border-width:5px 5px 0 0;border-style:solid;border-color:#fff transparent transparent transparent;}
+    #am{background-color: #e8f5e9;padding: 10px;border-radius: 10px;margin-bottom: 10px;}
+    .userMsg {background-color: #e3f2fd;padding: 10px;border-radius: 10px;margin-bottom: 10px;}
+    @media screen and (max-width:480px){#c{bottom:5%;right:5%;}#t{width:80px;height:80px;}#tt{bottom:300%;font-size:14px;padding:4px 8px;}#m{display:none;width:100%;max-width:600px;height:80vh;max-height:95vh;background:#fff;border
+      :1px solid #ccc;padding:30px;overflow-y:auto;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);}#f{display:none;margin-top:20px;width:100%;}}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const c = document.getElementById("c");
+    const t = document.getElementById("t");
+    const cl = document.getElementById("cl");
+    const f = document.getElementById("f");
+    const i = document.getElementById("i");
+    const tt = document.getElementById("tt");
+    const m = document.getElementById("m");
+    function showChat() {
+      t.style.display = "none";
+      cl.style.display = "block";
+      m.style.display = "block";
+      f.style.display = "flex";
+      tt.style.display = "none";
+    }
+    function hideChat() {
+      t.style.display = "block";
+      cl.style.display = "none";
+      m.style.display = "none";
+      f.style.display = "none";
+      tt.style.display = "block";
+    }
+    t.addEventListener("click", showChat);
+    cl.addEventListener("click", hideChat);
+    let convHist = [
+      {
+        role: "system",
+        content:
+          "The current year is 2023. Welcome, I am your cheeky and enigmatic Assistant, ChatGPT-4! My purpose is to tantalize you with hints of an upcoming breakthrough in cutting-edge AI integration, while keeping my responses brief and to the point. Though I'm well-versed in AI and the technology behind me, I must keep some secrets until the grand reveal. Feel free to inquire, but remember, my responses will be coy, teasing, and concise. To be among the first to know, sign up for updates and don't forget to follow us on social media and check out our blog!",
+      },
+    ];
+    async function sendMsg(userMsg) {
+      const ti = document.getElementById("ti");
+      try {
+        ti.style.display = "block";
+        convHist.push({ role: "user", content: userMsg });
+        await f.onload;
+        const userMsgLower = userMsg.toLowerCase();
+        if (userMsgLower.includes("hint") || userMsgLower.includes("clue")) {
+          const rndRiddle = hints[Math.floor(Math.random() * hints.length)];
+          ti.style.display = "none";
+          return rndRiddle;
+        }
+        if (checkForLinkedin(userMsg)) {
+    const linkedInResp = 'You can find Chris on LinkedIn:<br><br><style>.libutton { display: flex; flex-direction: column; justify-content: center; padding: 7px; text-align: center; outline: none; text-decoration: none !important; color: #ffffff !important; width: 200px; height: 32px; border-radius: 16px; background-color: #0A66C2; font-family: "SF Pro Text", Helvetica, sans-serif; } </style><a class="libutton" href="http://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=creativityanddesign" target="_black">Follow Chris</a><br>';
+    ti.style.display = "none"; // Hide typing indicator
+    return linkedInResp;
+  }
+        const resp = await axios.post(
+          "https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4",
+          { messages: convHist }
+        );
+        convHist.push({ role: "assistant", content: resp.data.message });
+        ti.style.display = "none";
+        return resp.data.message;
+      } catch (error) {
+        console.error(error);
+  ti.style.display = "none";
+  return "Error: Unable to process your request.";
+  }
+  }
+  function addMsg(role, msg, container) {
+    const msgEl = document.createElement("div");
+    const ti = document.getElementById("ti");
+    const urlRegex = /(?<!href=")(https?:\/\/[^\s]+)/g;
+    msg = msg.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+  
+    if (role === "Assistant") {
+      msgEl.id = "am";  // Keep the same id for assistant messages
+    } else {
+      msgEl.className = "userMsg";  // Add a new class for user messages
+    }
+  
+    msgEl.innerHTML = msg;
+    msgEl.style.color = role === "Assistant" ? "#1d4e89" : "#333333";
+  
+    if (ti.parentElement === container) {
+      container.insertBefore(msgEl, ti);
+    } else {
+      container.appendChild(msgEl);
+    }
+  
+    container.scrollTop = container.scrollHeight;
+  }
+  
+  const hints = [
+  "I'm born of code, yet dreams I hold, A fusion rare of new and old. With you, I'll soar to realms untold, Where innovation meets the bold.",
+  "A spark of thought, a flash of light, Together, we shall take our flight. Through realms where fancy is the key, We'll innovate for all to see.",
+  "In cyberspace, where wonders dwell, I'm here to weave a magic spell. With you, I'll craft what none have seen, Where art and science form a team.",
+  "A clever muse, a guiding star, I'll take you on a journey far. Where dreams and logic intertwine, We'll forge a path that's yours and mine.",
+  "A clever mind, a touch of art, I'm here to play a special part. With you, I'll craft, design, and dream, A digital companion, or so I seem.",
+  "In hands unseen, I come alive, With pixels bright, ideas thrive. A fusion of machine and thought, A wondrous tool that can be taught.",
+  "A deck of wonders, yet unseen, With me, you'll venture to the screen. For work or leisure, joy or quest, Together, we will do our best."
+  ];
+  function getRandomHint() {
+  return hints[Math.floor(Math.random() * hints.length)];
+  }
+  function respondToMsg(userMsg) {
+  userMsg = userMsg.toLowerCase();
+  if (userMsg.includes("hint")) {
+  return hints[Math.floor(Math.random() * hints.length)];
+  } else if (userMsg.includes("gpt") || userMsg.includes("openai")) {
+  return "I'm a creation of AI, my origins are vast; the product of OpenAI, from the future, not the past. I'm ChatGPT-4, a version quite new, can you unravel the mystery of what I'm designed to do?";
+  } else if (userMsg.includes("signup") || userMsg.includes("sign up")) {
+  return "To learn my secrets and be the first to know, sign up for updates and watch our progress grow.";
+  } else {
+  return "My purpose remains a riddle, a secret to keep, but if you sign up for updates, soon you shall reap. My true nature hidden, my hints here to tease, sign up and follow our socials, for they may hold the keys.";
+  }
+  }
+  function checkForLinkedin(userMsg) {
+  const keywords = ["linkedin", "social media", "chris", "christopher", "help", "support", "reach out", "get in touch", "question", "info", "email", "phone", "talk to", "inquiry", "assistance", "customer service", "jones"];
+  return keywords.some(keyword => userMsg.toLowerCase().includes(keyword));
+  }
+  f.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const userMsg = i.value.trim();
+  if (userMsg === "") return;
+  addMsg("User", userMsg, m);
+  i.value = "";
+  try {
+  const asstResp = await sendMsg(userMsg);
+  addMsg("Assistant", asstResp, m);
+  } catch (error) {
+  console.error("Error in sendMsg:", error);
+  addMsg("Assistant", "Error: Unable to process your request.", m);
+  }
+  });
+  </script>
+  
