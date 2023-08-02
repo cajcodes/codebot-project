@@ -23,7 +23,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   margin: 0;
   padding: 20px;
   box-sizing: border-box;
@@ -42,22 +41,25 @@ body {
   height: auto;
 }
 
-.you {
-  color: var(--accent-lime);
-  text-align: right;
+#chat-wrapper .you {
+    color: var(--accent-lime);
+    text-align: right;
 }
-
-.bot {
-  color: var(--light-grey);
-}
+  
+  #chat-wrapper .bot {
+    color: var(--light-grey);
+}  
 
 .chat-section {
-  position: relative;
-  width: 80vw;
-  height: calc(100vh - 250px);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+    position: relative;
+    width: auto; /* You may adjust this for a different width */
+    height: auto; /* You may adjust this for a different height */
+    min-height: 350px; /* Prevents the chat section from being too small */ 
+    max-height: 100%; /* Prevents the chat section from overflowing the wrapper */
+    margin: 0; /* Removes auto margin */
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
 }
 
 /* Added display flex and justify content space between */
@@ -67,12 +69,22 @@ body {
   padding-bottom: 5px; /* Keeps space between buttons and chat container */
 }
 
+#chat-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+}
+
 #chat-container {
   display: flex;
   flex-direction: column;
   height: calc(100% - 50px);
+  min-height: 350px; /* Prevents the chat container from being too small */
   overflow: auto;
   width: 100%;
+  min-width: 900px; /* Prevents the chat container from being too small */
   background-color: var(--mid-blue);
   border-radius: 8px;
   padding: 20px;
@@ -87,7 +99,7 @@ body {
 /* Added padding-top 5px */
 #message-form {
   display: flex;
-  width: 80vw;
+  width: auto;
   padding-top: 5px;
 }
 
@@ -194,7 +206,6 @@ pre {
 .dropdown {
   position: relative;
   display: inline-block;
-  align: right;
 }
 
 .dropdown-content {

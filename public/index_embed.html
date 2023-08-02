@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="styles_embed.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+</head>
+<body>
+    <main>
+        <div id="chat-wrapper">
+          <div class="chat-section">
+            <div class="engine-button-container">
+              <button id="engine-gpt-3.5" class="engine-button">GPT-3.5</button>
+              <button id="engine-gpt-4" class="engine-button">GPT-4</button>
+              <button id="engine-palm" class="engine-button">16K</button>
+              <div class="dropdown">
+                <button id="personality-button" class="engine-button">🎭</button>
+                <div id="personality-dropdown" class="dropdown-content">
+                  <a href="#" data-personality="coaching">Coaching</a>
+                  <a href="#" data-personality="creative">Creative</a>
+                  <a href="#" data-personality="sarcastic">Sarcastic</a>
+                  <a href="#" data-personality="truthful">Truthful</a>
+                  <a href="#" data-personality="witty">Witty</a>
+                  <a href="#" data-personality="formal">Formal</a>
+                  <a href="#" data-personality="friendly">Friendly</a>
+                </div>
+              </div>
+            </div>
+            <div id="chat-container"></div>
+            <form id="message-form">
+              <input type="text" id="message-input" placeholder="Type your code...">
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+    </main>
+  <script src="main.js"></script>
+</body>
+</html>
