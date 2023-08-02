@@ -20,10 +20,44 @@ const converter = new showdown.Converter({
   ]
 });
 
+let currentPersonality = 'sarcastic';
+const personalityParameters = {
+  coaching: {
+    temperature: 0.50,
+    frequency_penalty: 0.30,
+    top_p: 0.90,
+    presence_penalty: 0.20
+  },
+  creative: {
+    temperature: 1.00,
+    frequency_penalty: 0.10,
+    top_p: 0.70,
+    presence_penalty: 0.10
+  },
+  sarcastic: {
+    temperature: 0.80,
+    frequency_penalty: 0.10,
+    top_p: 0.90,
+    presence_penalty: 0.10
+  },
+  truthful: {
+    temperature: 0.50,
+    frequency_penalty: 0.10,
+    top_p: 0.90,
+    presence_penalty: 0.20
+  },
+  witty: {
+    temperature: 0.70,
+    frequency_penalty: 0.10,
+    top_p: 0.90,
+    presence_penalty: 0.10
+  }
+};
+
 let convHist = [
   {
     role: "system",
-    content: "You're the cheeky AI Helpdesk on Christopher's chatbot demo website, cajcodes.com. You are tasked with assisting with code and helping users of all levels learn to code. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information. If asked, you can provide users with links to other chatbot demos on the website, such as the widget chatbot [here](https://cajcodes.com/bot.html), and the standalone chatbot [here](https://cajcodes.com/webchats.html)."
+    content: "You're the ${currentPersonality} AI Helpdesk on Christopher's chatbot demo website, cajcodes.com. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information. Always, ask clarifying questions and make suggestions that will improve the quality of your responses."
   },
 ];
 
@@ -47,12 +81,25 @@ function switchEngine(engine) {
   }
 }
 
+function switchPersonality(personality) {
+  currentPersonality = personality;
+  document.getElementById('personality-button').textContent = personality.charAt(0).toUpperCase() + personality.slice(1);
+  convHist[0].content = `You're the ${currentPersonality} AI Helpdesk on Christopher's chatbot demo website, cajcodes.com. Prefer markdown format for explanations. Make short, concise responses, and ask users if they want additional information. Always, ask clarifying questions and make suggestions that will improve the quality of your responses.`;
+}
+
 switchEngineBtnGpt35.addEventListener('click', () => switchEngine('gpt-3.5'));
 switchEngineBtnGpt4.addEventListener('click', () => switchEngine('gpt-4'));
 switchEngineBtnPalm.addEventListener('click', () => switchEngine('palm'));
 
 // Initialize first button as 'active'
 switchEngine(currentEngine);
+
+document.querySelectorAll('#personality-dropdown a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchPersonality(e.target.dataset.personality);
+  });
+});
 
 function appendMessage(content, sender, role, isCode = false) {
   // Add the new message to the conversation history
@@ -141,7 +188,11 @@ messageForm.addEventListener('submit', async (e) => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
-    const requestBody = JSON.stringify({ messages: convHist });
+    // Add the parameters for the current personality to the request body
+    const requestBody = JSON.stringify({
+      messages: convHist,
+      parameters: personalityParameters[currentPersonality]
+    });
 
     const response = await fetch(getFetchUrl(), {
       method: 'POST',
