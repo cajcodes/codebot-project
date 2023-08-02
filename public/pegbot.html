@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/peg-demobot/styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>pegbot</title>
+    <meta content="Welcome to Pegbot, Phonoscope Fiber's creative playground of innovative ideas. Discover AI chatbots, and a myriad of fun experiments that showcase the charm and power of programming." name="description">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://uploads-ssl.webflow.com/6337634d1734852d2aeaf70a/63f39bb01f945c8315c38379_favicon%20peg.png" rel="shortcut icon" type="image/x-icon">
+    <link href="https://uploads-ssl.webflow.com/6337634d1734852d2aeaf70a/6423855f4f8a99046484657e_peg%20simple%20large%20webclip.png" rel="apple-touch-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+  </head>
 <body>
     <main>
+      <div class="logo-container">
+        <img src="https://uploads-ssl.webflow.com/64934f231dc51627d76a122f/64cab62efc08857eb02569b2_white%20and%20red.svg" alt="PEG Logo" class="logo">
+      </div>
         <div id="chat-wrapper">
           <div class="chat-section">
             <div class="engine-button-container">
@@ -28,12 +36,12 @@
             </div>
             <div id="chat-container"></div>
             <form id="message-form">
-              <input type="text" id="message-input" placeholder="Type your code...">
+              <input type="text" id="message-input" placeholder="Say hi...">
               <button type="submit">Send</button>
             </form>
           </div>
         </div>
     </main>
-  <script src="https://storage.googleapis.com/peg-demobot/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
