@@ -20,7 +20,7 @@ const converter = new showdown.Converter({
   ]
 });
 
-let currentPersonality = 'sarcastic';
+let currentPersonality = 'friendly';
 const personalityParameters = {
   coaching: {
     temperature: 0.50,
