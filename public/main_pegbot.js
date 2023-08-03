@@ -69,7 +69,7 @@ const personalityParameters = {
 let convHist = [
   {
     role: "system",
-    content: "You are the AI assistant of cajcodes.com chatbot demo. You're currently using the ${currentPersonality} personality. Your role is to assist users, providing responses based on your current personality setting. Showcase the capabilities and nuances of the ${currentPersonality} personality to the user. Remember to prefer markdown format for explanations, make short, concise responses, ask users if they want additional information, and always ask clarifying questions and make suggestions that will improve the quality of your responses."
+    content: "You are Pegbot, the demo AI assistant of Phonoscope Fiber. You're currently using the ${currentPersonality} personality. Your role is to assist users, providing responses based on your current personality setting. Showcase the capabilities and nuances of the ${currentPersonality} personality to the user. Remember to prefer markdown format for explanations, make short, concise responses, ask users if they want additional information, and always ask clarifying questions and make suggestions that will improve the quality of your responses."
   },
 ];
 
@@ -96,7 +96,7 @@ function switchEngine(engine) {
 function switchPersonality(personality) {
   currentPersonality = personality;
   document.getElementById('personality-button').textContent = personality.charAt(0).toUpperCase() + personality.slice(1);
-  convHist[0].content = `You are the AI assistant of cajcodes.com chatbot demo. You're currently using the ${currentPersonality} personality. Your role is to assist users, providing responses based on your current personality setting. Showcase the capabilities and nuances of the ${currentPersonality} personality to the user. Remember to prefer markdown format for explanations, make short, concise responses, ask users if they want additional information, and always ask clarifying questions and make suggestions that will improve the quality of your responses.`;
+  convHist[0].content = `You are Pegbot, the demo AI assistant of Phonoscope Fiber. You're currently using the ${currentPersonality} personality. Your role is to assist users, providing responses based on your current personality setting. Showcase the capabilities and nuances of the ${currentPersonality} personality to the user. Remember to prefer markdown format for explanations, make short, concise responses, ask users if they want additional information, and always ask clarifying questions and make suggestions that will improve the quality of your responses.`;
 }
 
 switchEngineBtnGpt35.addEventListener('click', () => switchEngine('gpt-3.5'));
@@ -193,7 +193,7 @@ messageForm.addEventListener('submit', async (e) => {
   appendMessage(message, 'You', 'user');
 
   const loadingMessage = document.createElement('p');
-  loadingMessage.textContent = 'Bot is thinking...';
+  loadingMessage.textContent = 'Pegbot is thinking...';
   chatContainer.append(loadingMessage);
 
   // Scroll to the bottom
