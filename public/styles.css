@@ -216,7 +216,7 @@ pre {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #3e8e41}
+.dropdown-content a:hover {background-color: #007bff}
 
 .dropdown:hover .dropdown-content {display: block;}
 
