@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>cajcodes</title>
+  <meta content="Welcome to CAJcodes, Christopher's creative playground of innovative coding projects. Discover AI chatbots, engaging games, and a myriad of fun experiments that showcase the charm and power of programming." name="description">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://uploads-ssl.webflow.com/6383aec1428da049fa258d97/6478f65cfac3f5314cdccbe8_favicon_dark_transparent_caj.png" rel="shortcut icon" type="image/x-icon">
+  <link href="https://uploads-ssl.webflow.com/6383aec1428da049fa258d97/6478f5bb4908180c0d06b524_webclip_white_caj.png" rel="apple-touch-icon">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+</head>
+<body>
+
+  <main>
+    <div class="logo-container">
+      <img src="https://uploads-ssl.webflow.com/6383aec1428da049fa258d97/6478f5494954474aa01eeb3a_caj_logo_shadow-lime.svg" alt="CAJ Logo" class="logo">
+    </div>
+    <div class="chat-section">
+      <div class="engine-button-container">
+        <button id="engine-gpt-3.5" class="engine-button">GPT-3.5</button>
+        <button id="engine-gpt-4" class="engine-button">GPT-4</button>
+        <button id="engine-palm" class="engine-button">16K</button>
+        <!-- New button and dropdown -->
+        <div class="dropdown">
+          <button id="personality-button" class="engine-button">🎭</button>
+          <div id="personality-dropdown" class="dropdown-content">
+            <a href="#" data-personality="coaching">Coaching</a>
+            <a href="#" data-personality="creative">Creative</a>
+            <a href="#" data-personality="sarcastic">Sarcastic</a>
+            <a href="#" data-personality="truthful">Truthful</a>
+            <a href="#" data-personality="witty">Witty</a>
+            <a href="#" data-personality="formal">Formal</a>
+            <a href="#" data-personality="friendly">Friendly</a>
+          </div>
+        </div>
+    </div>        
+      <div id="chat-container"></div>
+      
+    </div>
+    <form id="message-form">
+      <input type="text" id="message-input" placeholder="Say hi...">
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <script src="img.js"></script>
+</body>
+</html>

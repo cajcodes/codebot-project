@@ -140,3 +140,35 @@ exports.appChatBot = functions.https.onRequest(async (req, res) => {
     res.status(500).json({ message: 'An error occurred while processing your request' });
   }
 });
+
+exports.generateImageDallE = functions.https.onRequest(async (req, res) => {
+  corsMiddleware(req, res, async () => {
+    const { prompt, size } = req.body;
+
+    try {
+      const response = await axios.post('https://api.openai.com/v1/images/generations', {
+        prompt: prompt,
+        n: 1,
+        size: size,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${functions.config().openai.key}`
+        }
+      });
+
+      const imageUrl = response.data.data[0].url;
+      res.json({ url: imageUrl });
+
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        console.log(error.response.status);
+        console.log(error.response.data);
+      } else {
+        console.log(error.message);
+      }
+      res.status(500).json({ message: 'An error occurred while processing your request' });
+    }
+  });
+});
