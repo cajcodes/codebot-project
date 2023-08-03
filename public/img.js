@@ -190,7 +190,7 @@ function getFetchUrl() {
 }
 
 function isImageGenerationRequest(message) {
-  return message.startsWith('Generate an image of');
+  return message.startsWith('Imagine');
 }
 
 messageForm.addEventListener('submit', async (e) => {
