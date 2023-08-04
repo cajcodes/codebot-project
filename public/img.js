@@ -211,7 +211,7 @@ messageForm.addEventListener('submit', async (e) => {
     try {
       if (isImageGenerationRequest(message)) {
         const requestBody = JSON.stringify({
-          prompt: message.replace('Generate an image of', '').trim(),
+          prompt: message.replace('Imagine', '').trim(),
           size: "256x256"
         });
   
