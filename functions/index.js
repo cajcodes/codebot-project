@@ -3,7 +3,7 @@ const axios = require('axios');
 const cors = require('cors');
 const { google } = require('google-auth-library');
 
-const whitelist = ['https://www.cajcodes.com', 'https://cajcodes.com', 'https://codebot-project.web.app', 'http://localhost:3000', 'http://localhost:5000', 'https://chrisjones.webflow.io', 'https://www.webchats.ai', 'https://ruggededge-demo.webflow.io', 'https://ruggededge.ai', 'https://www.ruggededge.ai', 'https://www.phonoscopefiber.com', 'https://phonoscopefiber.com', 'https://storage.googleapis.com'];
+const whitelist = ['https://www.cajcodes.com', 'https://cajcodes.com', 'https://caj.ai', 'https://www.caj.ai', 'https://codebot-project.web.app', 'http://localhost:3000', 'http://localhost:5000', 'https://chrisjones.webflow.io', 'https://www.webchats.ai', 'https://ruggededge-demo.webflow.io', 'https://ruggededge.ai', 'https://www.ruggededge.ai', 'https://www.phonoscopefiber.com', 'https://phonoscopefiber.com', 'https://storage.googleapis.com'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
