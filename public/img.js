@@ -185,7 +185,7 @@ function getFetchUrl() {
     return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35Turbo';
   } else if (currentEngine === "palm") {
     // Add the URL for your PaLM engine
-    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt35TurboLarge';
+    return 'https://us-central1-codebot-project.cloudfunctions.net/chatBotGpt4Large';
   }
 }
 
@@ -212,10 +212,10 @@ messageForm.addEventListener('submit', async (e) => {
       if (isImageGenerationRequest(message)) {
         const requestBody = JSON.stringify({
           prompt: message.replace('Imagine', '').trim(),
-          size: "256x256"
+          size: "1024x1024"
         });
   
-        const response = await fetch('https://us-central1-codebot-project.cloudfunctions.net/generateImageDallE', {
+        const response = await fetch('https://us-central1-codebot-project.cloudfunctions.net/generateImageDallE3', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

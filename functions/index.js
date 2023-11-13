@@ -72,7 +72,7 @@ exports.chatBotGpt4Large = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-4-32k",
+        model: "gpt-4-1106-preview",
         messages,
       }, {
         headers: {
@@ -194,6 +194,39 @@ exports.chatBotGpt35TurboInstruct = functions.https.onRequest(async (req, res) =
     } catch (error) {
       console.error('Error Message:', error.message);
       console.error('Error Response Data:', error.response?.data);
+      res.status(500).json({ message: 'An error occurred while processing your request' });
+    }
+  });
+});
+
+exports.generateImageDallE3 = functions.https.onRequest(async (req, res) => {
+  corsMiddleware(req, res, async () => {
+    const { prompt, size } = req.body;
+
+    try {
+      const response = await axios.post('https://api.openai.com/v1/images/generations', {
+        model:"dall-e-3",
+        prompt: prompt,
+        n: 1,
+        size: size,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${functions.config().openai.key}`
+        }
+      });
+
+      const imageUrl = response.data.data[0].url;
+      res.json({ url: imageUrl });
+
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        console.log(error.response.status);
+        console.log(error.response.data);
+      } else {
+        console.log(error.message);
+      }
       res.status(500).json({ message: 'An error occurred while processing your request' });
     }
   });
