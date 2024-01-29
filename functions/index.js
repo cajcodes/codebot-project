@@ -72,7 +72,7 @@ exports.chatBotGpt4Large = functions.https.onRequest(async (req, res) => {
 
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-4-1106-preview",
+        model: "gpt-4-turbo-preview",
         messages,
       }, {
         headers: {
@@ -123,7 +123,7 @@ exports.appChatBot = functions.https.onRequest(async (req, res) => {
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: "gpt-4",
+      model: "gpt-4-turbo-preview",
       messages,
     }, {
       headers: {
