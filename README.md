@@ -23,9 +23,7 @@ The cloud functions and web applications are designed to be highly customizable 
     The code initializes several variables, including a Markdown converter with a custom rendering for links and code, and an object of personality parameters that map personality names to specific values for temperature, frequency penalty, top p, and presence penalty.
     The conversation history is initialized as an array with one object, which includes a system message that introduces the chatbot and its current personality.
 
-    ![Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png) 
-
-    ! [Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png)
+    ![Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png)
 
 ## pegbot
 [Pegbot](/public/pegbot.html)
