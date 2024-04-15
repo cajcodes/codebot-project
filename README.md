@@ -6,14 +6,6 @@ The cloud functions and web applications are designed to be highly customizable 
 ## Functions 
 [Firebase Functions](/functions/index.html)
     These are the Firebase Cloud Functions that provides a chatbot service and image generation using models from OpenAI. It is designed to be used with the public web applications and includes CORS (Cross-Origin Resource Sharing) middleware to allow requests from specific domains. Provides error handling and response formatting.
-            chatBotGpt4
-            chatBotGpt35Turbo
-            chatBotGpt4Large
-            chatBotGpt35TurboLarge
-            appChatBot
-            generateImageDallE
-            chatBotGpt35TurboInstruct
-            generateImageDallE3
 
 # Frontend
 
@@ -23,7 +15,7 @@ The cloud functions and web applications are designed to be highly customizable 
     The code initializes several variables, including a Markdown converter with a custom rendering for links and code, and an object of personality parameters that map personality names to specific values for temperature, frequency penalty, top p, and presence penalty.
     The conversation history is initialized as an array with one object, which includes a system message that introduces the chatbot and its current personality.
 
-    ![Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png)
+![Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png)
 
 ## pegbot
 [Pegbot](/public/pegbot.html)
@@ -32,7 +24,7 @@ The cloud functions and web applications are designed to be highly customizable 
     If the message starts with "Imagine", a request is sent to generate an image using the DALL-E 3 model.
     Like the original demo, it includes functionality for switching between personalities, Markdown rendering for links and code - with 'copy code' and direct link buttons.
 
-    ![Screenshot of pegbot chatbot demo.](/screenshots/pegbot.png) 
+![Screenshot of pegbot chatbot demo.](/screenshots/pegbot.png) 
 
 ## Enigmatic Chatbot
 [Enigmatic Bot](/public/enigmatic-bot.html)
@@ -44,9 +36,9 @@ The cloud functions and web applications are designed to be highly customizable 
             * The chatbot encourages users to sign up for updates and follow me on social media.
             * The chatbot includes a typing indicator to show when it is processing a user message.
 
-    ![Screenshot of enigmatic chatbot closed.](/screenshots/droids.png) 
+![Screenshot of enigmatic chatbot closed.](/screenshots/droids.png) 
 
-    ![Screenshot of enigmatic chatbot open.](/screenshots/droids-open.png) 
+![Screenshot of enigmatic chatbot open.](/screenshots/droids-open.png) 
     
 ## Troubleshooting Chat
 [Troubleshooting Demo](/public/troubleshooting.html)
@@ -54,4 +46,4 @@ The cloud functions and web applications are designed to be highly customizable 
     The chatbot is built using JavaScript and the Axios library for making HTTP requests. The chatbot uses a conversation history array to keep track of the conversation and uses the showdown library to convert Markdown formatted text into HTML for clearer communication.
     The chatbot is designed to be helpful and efficient, providing quick and concise answers to customer queries. The chatbot is also designed to be polite and courteous, providing a positive customer experience.
 
-    ![Screenshot of Troubleshooting interface.](/screenshots/troubleshooting.png) 
+![Screenshot of Troubleshooting interface.](/screenshots/troubleshooting.png) 
