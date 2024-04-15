@@ -1,20 +1,19 @@
-This project showcases the power of innovative prompt engineering by providing a suite of 
-Firebase Cloud Functions that offer advanced chatbot and image generation capabilities. By leveraging the latest models from OpenAI, this project demonstrates how thoughtfully crafted prompts can unlock the full potential of large language models, enabling a diverse range of intelligent conversational experiences and creative imagery.
+This project showcases the power of innovative prompt engineering by providing a suite of Firebase Cloud Functions that offer advanced chatbot and image generation capabilities. By leveraging the latest models from OpenAI, this project demonstrates how thoughtfully crafted prompts can unlock the full potential of large language models, enabling a diverse range of intelligent conversational experiences and creative imagery.
 The cloud functions and web applications are designed to be highly customizable and easily integrated into a variety of projects, showcasing the versatility and power of the underlying technology.
 
 # Backend 
 
 ## Functions 
-[/functions/index.js](/functions/index.html)
+[Firebase Functions](/functions/index.html)
     These are the Firebase Cloud Functions that provides a chatbot service and image generation using models from OpenAI. It is designed to be used with the public web applications and includes CORS (Cross-Origin Resource Sharing) middleware to allow requests from specific domains. Provides error handling and response formatting.
-            chatBotGpt4
-            chatBotGpt35Turbo
-            chatBotGpt4Large
-            chatBotGpt35TurboLarge
-            appChatBot
-            generateImageDallE
-            chatBotGpt35TurboInstruct
-            generateImageDallE3
+            * chatBotGpt4
+            * chatBotGpt35Turbo
+            * chatBotGpt4Large
+            * chatBotGpt35TurboLarge
+            * appChatBot
+            * generateImageDallE
+            * chatBotGpt35TurboInstruct
+            * generateImageDallE3
 
 # Frontend
 
@@ -25,6 +24,8 @@ The cloud functions and web applications are designed to be highly customizable 
     The conversation history is initialized as an array with one object, which includes a system message that introduces the chatbot and its current personality.
 
     ![Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png) 
+
+    ! [Screenshot of cajcodes chatbot demo.](/screenshots/cajcodes.png)
 
 ## pegbot
 [Pegbot](/public/pegbot.html)
@@ -38,12 +39,12 @@ The cloud functions and web applications are designed to be highly customizable 
 ## Enigmatic Chatbot
 [Enigmatic Bot](/public/enigmatic-bot.html)
     This is a web-based AI chatbot that provides hints and teasers about an upcoming breakthrough in cutting-edge AI integration. The chatbot is designed to be cheeky and enigmatic, providing brief and concise responses that keep the user engaged and curious.
-            The chatbot is triggered by clicking on the droid icon in the bottom right corner of the screen.
-            The chatbot provides hints and teasers about an upcoming AI integration breakthrough.
-            The chatbot responds to user messages that include keywords such as "hint", "clue", "GPT", "OpenAI", "sign up", and various social media and contact-related keywords.
-            The chatbot provides a special response when asked about GPT or OpenAI.
-            The chatbot encourages users to sign up for updates and follow me on social media.
-            The chatbot includes a typing indicator to show when it is processing a user message.
+            * The chatbot is triggered by clicking on the droid icon in the bottom right corner of the screen.
+            * The chatbot provides hints and teasers about an upcoming AI integration breakthrough.
+            * The chatbot responds to user messages that include keywords such as "hint", "clue", "GPT", "OpenAI", "sign up", and various social media and contact-related keywords.
+            * The chatbot provides a special response when asked about GPT or OpenAI.
+            * The chatbot encourages users to sign up for updates and follow me on social media.
+            * The chatbot includes a typing indicator to show when it is processing a user message.
 
     ![Screenshot of enigmatic chatbot closed.](/screenshots/droids.png) 
 
