@@ -6,14 +6,14 @@ The cloud functions and web applications are designed to be highly customizable 
 ## Functions 
 [Firebase Functions](/functions/index.html)
     These are the Firebase Cloud Functions that provides a chatbot service and image generation using models from OpenAI. It is designed to be used with the public web applications and includes CORS (Cross-Origin Resource Sharing) middleware to allow requests from specific domains. Provides error handling and response formatting.
-            * chatBotGpt4
-            * chatBotGpt35Turbo
-            * chatBotGpt4Large
-            * chatBotGpt35TurboLarge
-            * appChatBot
-            * generateImageDallE
-            * chatBotGpt35TurboInstruct
-            * generateImageDallE3
+            chatBotGpt4
+            chatBotGpt35Turbo
+            chatBotGpt4Large
+            chatBotGpt35TurboLarge
+            appChatBot
+            generateImageDallE
+            chatBotGpt35TurboInstruct
+            generateImageDallE3
 
 # Frontend
 
