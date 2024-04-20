@@ -182,7 +182,7 @@ function getFetchUrl() {
   if (currentEngine === "gpt-4") {
     return 'https://us-central1-named-idiom-390417.cloudfunctions.net/chatBotGpt4';
   } else if (currentEngine === "gpt-3.5") {
-    return 'https://us-central1-named-idiom-390417.cloudfunctions.net/chatBotGpt4';
+    return 'https://us-central1-named-idiom-390417.cloudfunctions.net/chatBotGpt35Turbo';
   } else if (currentEngine === "palm") {
     // Add the URL for your PaLM engine
     return 'https://us-central1-named-idiom-390417.cloudfunctions.net/chatBotGpt4';
