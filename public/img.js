@@ -262,4 +262,3 @@ messageForm.addEventListener('submit', async (e) => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }  
   });
-  
